@@ -4,6 +4,10 @@ import os
 
 root = Tk()
 
+root.iconbitmap('img_page.ico')
+
+
+
 #lista e procura as imagens da nossa pasta imagens
 arquivos = os.listdir('imagens')
 
@@ -18,17 +22,25 @@ imagem_atual = 0
 
 #percorre a lista de arquivos / muda as imagens
 for arquivo in arquivos:
-    #abre a imagem
-    img = Image.open('imagens/' + arquivo)
-    #redimensiona a imgem / define tamanho padrão para todas as imagens
-    img = ImageOps.contain(img, (200, 200))
-    #adiciona a imagem na lista / transforma o texto(nome do arquivo) em imagem pro Tkinter
-    imagens.append(ImageTk.PhotoImage(img))
+    try:
+        #abre a imagem
+        img = Image.open('imagens/' + arquivo)
+    except Exception as e:
+        pass
+        print(e)
+    else:
+        #redimensiona a imgem / define tamanho padrão para todas as imagens
+        img = ImageOps.contain(img, (200, 200))
+        #adiciona a imagem na lista / transforma o texto(nome do arquivo) em imagem pro Tkinter
+        imagens.append(ImageTk.PhotoImage(img))
+
+
 
 #Exibe os arquivos em um Label
 #arquivos_label = Label(root, text = arquivos)
 #arquivos_label.pack()
 
+    
 
 img_label = Label(root, image = imagens[imagem_atual])
 img_label.grid(column=1, row=0, columnspan=3)
@@ -71,15 +83,15 @@ def next_image():
 
 #Botão para mostrar a próxima imagem
 
-btn_prev = Button(root, text='Prev', pady=15, font=('Helvetica', 9), command=prev_image)
+btn_prev = Button(root, text='Prev', pady=15, padx= 20, font=('Helvetica', 9), command=prev_image, bg='#212220', fg= 'white')
 
 #Botão para mostrar a imagem anterior
 
-btn_quit = Button(root, text='Sair', pady=15, font=('Helvetica', 9), command=root.quit)
+btn_quit = Button(root, text='Sair', pady=15, padx= 15, font=('Helvetica', 9), command=root.quit, bg='#660000', fg= 'white')
 
 #Botão para fecha a janela
 
-btn_next = Button(root, text='Next', pady=15, font=('Helvetica', 9), command=next_image)
+btn_next = Button(root, text='Next', pady=15, padx= 20, font=('Helvetica', 9), command=next_image, bg='#212220', fg= 'white')
 
 #posicionamento dos botões
 
